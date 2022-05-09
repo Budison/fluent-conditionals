@@ -60,6 +60,4 @@ public class FluentConditionalsTest {
         // Then
         assertEquals(sample, expected);
     }
-
-    
 }
