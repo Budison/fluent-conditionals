@@ -1,3 +1,5 @@
+package fluentconditionals;
+
 class TestHelper {
   static boolean somethingIsTrue() {return true; }
   static int getHighNumber() { return 1000; }

@@ -7,7 +7,7 @@
     <groupId>com.github.budison.fluent_conditionals</groupId>
     <artifactId>fluent_conditionals</artifactId>
     <version>0.0.1</version>
-    <name>fluent_conditionals</name>
+    <name>fluentconditionals</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -50,6 +50,12 @@
             <groupId>org.tinylog</groupId>
             <artifactId>tinylog-impl</artifactId>
             <version>${version.dependency.tinylog.impl}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.28.2</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
