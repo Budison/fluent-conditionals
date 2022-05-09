@@ -16,6 +16,8 @@ interface FluentConditionals {
         return new FluentCondition(supplier.get());
     }
 
+
+
     Runnable doNothing = () -> {};
 
     class FluentCondition {
@@ -40,9 +42,18 @@ interface FluentConditionals {
             }
         }
 
+        void orElseThrowE(RuntimeException e) {
+            if (condition) {
+                throw new RuntimeException(e);
+            }
+        }
 
-        
-        
+
+        void orElseThrow(Supplier<RuntimeException> runtimeExceptionSupplier) {
+            if (condition) {
+                throw runtimeExceptionSupplier.get();
+            }
+        }
     }
 }
 
