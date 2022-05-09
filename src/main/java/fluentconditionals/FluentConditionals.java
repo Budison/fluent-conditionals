@@ -1,6 +1,7 @@
 package fluentconditionals;
 
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.function.Supplier;
 
 /**
@@ -21,9 +22,15 @@ interface FluentConditionals {
 
     class FluentCondition {
         Boolean condition;
+        int returnInt;
 
         FluentCondition(boolean condition) {
             this.condition = condition;
+        }
+
+        public FluentCondition(Boolean condition, int returnInt) {
+            this.condition = condition;
+            this.returnInt = returnInt;
         }
 
         FluentCondition then(Runnable runnable) {
@@ -49,6 +56,27 @@ interface FluentConditionals {
             if (!condition) {
                 throw runtimeExceptionSupplier.get();
             }
+        }
+
+        FluentCondition thenReturn(Supplier<Integer> supplier) {
+            if (condition) {
+                returnInt = supplier.get();
+            }
+            return this;
+        }
+
+        int orElse(Supplier<Integer> supplier) {
+            if (!condition) {
+                returnInt = supplier.get();
+            }
+            return returnInt;
+        }
+
+        int orElse(int i) {
+            if (!condition) {
+                returnInt = i;
+            }
+            return returnInt;
         }
     }
 }
