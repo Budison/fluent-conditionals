@@ -62,7 +62,7 @@ interface FluentConditionals {
             if (condition) {
                 returnInt = supplier.get();
             }
-            return this;
+            return new FluentCondition(condition, returnInt);
         }
 
         int orElse(Supplier<Integer> supplier) {

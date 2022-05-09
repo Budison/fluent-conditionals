@@ -3,8 +3,7 @@ package fluentconditionals;
 import org.mockito.Mockito;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertThrows;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 /**
  * @author Kevin Nowak
@@ -53,4 +52,14 @@ public class FluentConditionalsTest {
         FluentConditionals.when(true).orElseThrow(RuntimeException::new);
         FluentConditionals.when(false).orElseThrow(RuntimeException::new);
     }
+
+    public void testThenReturn() {
+        // Given
+        int expected = TestHelper.getHighNumber();
+        int sample = FluentConditionals.when(true).thenReturn(TestHelper::getHighNumber).orElse(0);
+        // Then
+        assertEquals(sample, expected);
+    }
+
+    
 }
