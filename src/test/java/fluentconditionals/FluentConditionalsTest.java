@@ -3,6 +3,9 @@ package fluentconditionals;
 import org.mockito.Mockito;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertThrows;
+import static org.testng.Assert.assertTrue;
+
 /**
  * @author Kevin Nowak
  */
@@ -36,5 +39,18 @@ public class FluentConditionalsTest {
         Runnable mockedRunnable = Mockito.mock(Runnable.class);
         FluentConditionals.when(TestHelper.somethingIsTrue()).then(FluentConditionals.doNothing).orElse(mockedRunnable);
         Mockito.verify(mockedRunnable, Mockito.never()).run();
+    }
+
+    @Test(expectedExceptions = RuntimeException.class)
+    public void testOrElseThrowE() {
+        FluentConditionals.when(true).orElseThrowE(TestHelper.createException());
+        FluentConditionals.when(false).orElseThrowE(TestHelper.createException());
+
+    }
+
+    @Test(expectedExceptions = RuntimeException.class)
+    public void testOrElseThrow() {
+        FluentConditionals.when(true).orElseThrow(RuntimeException::new);
+        FluentConditionals.when(false).orElseThrow(RuntimeException::new);
     }
 }

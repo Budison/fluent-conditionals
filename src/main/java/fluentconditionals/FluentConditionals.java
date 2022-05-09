@@ -1,5 +1,6 @@
 package fluentconditionals;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -16,13 +17,10 @@ interface FluentConditionals {
         return new FluentCondition(supplier.get());
     }
 
-
-
     Runnable doNothing = () -> {};
 
     class FluentCondition {
-        boolean condition;
-
+        Boolean condition;
 
         FluentCondition(boolean condition) {
             this.condition = condition;
@@ -31,26 +29,24 @@ interface FluentConditionals {
         FluentCondition then(Runnable runnable) {
             if (condition) {
                 runnable.run();
-                return new FluentCondition(false);
             }
-            return new FluentCondition(true);
+            return new FluentCondition(condition);
         }
 
         void orElse(Runnable runnable) {
-            if (condition) {
+            if (!condition) {
                 runnable.run();
             }
         }
 
         void orElseThrowE(RuntimeException e) {
-            if (condition) {
+            if (!condition) {
                 throw new RuntimeException(e);
             }
         }
 
-
         void orElseThrow(Supplier<RuntimeException> runtimeExceptionSupplier) {
-            if (condition) {
+            if (!condition) {
                 throw runtimeExceptionSupplier.get();
             }
         }
