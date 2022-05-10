@@ -60,4 +60,17 @@ public class FluentConditionalsTest {
         // Then
         assertEquals(sample, expected);
     }
+
+    public void testOrElseInt() {
+        // Given
+        int expected = TestHelper.getHighNumber();
+        int sample = FluentConditionals.when(false).thenReturn(TestHelper::getLowNumber).orElse(expected);
+        assertEquals(sample, expected);
+    }
+
+    public void testOrElseSupplier() {
+        int expected = TestHelper.getLowNumber();
+        int sample = FluentConditionals.when(true).thenReturn(TestHelper::getLowNumber).orElse(TestHelper::getHighNumber);
+        assertEquals(sample, expected);
+    }
 }
