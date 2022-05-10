@@ -1,20 +1,19 @@
 package fluentconditionals;
 
 import static fluentconditionals.FluentConditionals.*;
-//Task 3
-class IfElseThenReturn {
+//Task 4
+class IfThenReturnElseThrow {
 
     public static void main(String[] args) {
 
-        int resultHigh = when(TestHelper::somethingIsTrue)
-                .thenReturn(TestHelper::getHighNumber)
-                .orElse(TestHelper::getLowNumber);
-        System.out.println(resultHigh); // 1_000
+        int resultLow = when(TestHelper::somethingIsTrue)
+                .thenReturn(TestHelper::getLowNumber)
+                .orElseThrowE(new RuntimeException());
+        System.out.println(resultLow); // 1
 
-        int resultZero = when(!TestHelper.somethingIsTrue())
-                .thenReturn(TestHelper::getHighNumber)
-                .orElse(0);
-        System.out.println(resultZero); // 0
-
+        int resultOther = when(!TestHelper.somethingIsTrue())
+                .thenReturn(TestHelper::getLowNumber)
+                .orElseThrow(RuntimeException::new);
+        // Exception is thrown
     }
 }

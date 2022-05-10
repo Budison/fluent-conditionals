@@ -1,13 +1,10 @@
 package fluentconditionals;
 
-import java.util.Optional;
-import java.util.OptionalInt;
 import java.util.function.Supplier;
 
 /**
  * @author Kevin Nowak
  */
-
 interface FluentConditionals {
 
     static FluentCondition when(boolean b) {
@@ -46,16 +43,18 @@ interface FluentConditionals {
             }
         }
 
-        void orElseThrowE(RuntimeException e) {
+        int orElseThrowE(RuntimeException e) {
             if (!condition) {
                 throw new RuntimeException(e);
             }
+            return returnInt;
         }
 
-        void orElseThrow(Supplier<RuntimeException> runtimeExceptionSupplier) {
+        int orElseThrow(Supplier<RuntimeException> runtimeExceptionSupplier) {
             if (!condition) {
                 throw runtimeExceptionSupplier.get();
             }
+            return returnInt;
         }
 
         FluentCondition thenReturn(Supplier<Integer> supplier) {
