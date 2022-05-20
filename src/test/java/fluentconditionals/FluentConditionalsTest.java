@@ -56,7 +56,7 @@ public class FluentConditionalsTest {
     public void testThenReturn() {
         // Given
         int expected = TestHelper.getHighNumber();
-        int sample = FluentConditionals.when(true).thenReturn(TestHelper::getHighNumber).orElse(0);
+        var sample = FluentConditionals.when(true).thenReturn(TestHelper::getHighNumber).orElse(0);
         // Then
         assertEquals(sample, expected);
     }
@@ -64,19 +64,19 @@ public class FluentConditionalsTest {
     public void testOrElseInt() {
         // Given
         int expected = TestHelper.getHighNumber();
-        int sample = FluentConditionals.when(false).thenReturn(TestHelper::getLowNumber).orElse(expected);
+        var sample = FluentConditionals.when(false).thenReturn(TestHelper::getLowNumber).orElse(expected);
         assertEquals(sample, expected);
     }
 
     public void testOrElseSupplier1() {
         int expected = TestHelper.getLowNumber();
-        int sample = FluentConditionals.when(true).thenReturn(TestHelper::getLowNumber).orElse(TestHelper::getHighNumber);
+        var sample = FluentConditionals.when(true).thenReturn(TestHelper::getLowNumber).orElse(TestHelper::getHighNumber);
         assertEquals(sample, expected);
     }
 
     public void testOrElseSupplier2() {
         int expected = TestHelper.getHighNumber();
-        int sample = FluentConditionals.when(false).thenReturn(TestHelper::getLowNumber).orElse(TestHelper::getHighNumber);
+        var sample = FluentConditionals.when(false).thenReturn(TestHelper::getLowNumber).orElse(TestHelper::getHighNumber);
         assertEquals(sample, expected);
     }
 }

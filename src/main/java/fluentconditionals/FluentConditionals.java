@@ -17,24 +17,24 @@ interface FluentConditionals {
 
     Runnable doNothing = () -> {};
 
-    class FluentCondition {
+    class FluentCondition<T> {
         Boolean condition;
-        int returnInt;
+        T t;
 
         FluentCondition(boolean condition) {
             this.condition = condition;
         }
 
-        public FluentCondition(Boolean condition, int returnInt) {
+        public FluentCondition(Boolean condition, T t) {
             this.condition = condition;
-            this.returnInt = returnInt;
+            this.t = t;
         }
 
-        FluentCondition then(Runnable runnable) {
+        FluentCondition<T> then(Runnable runnable) {
             if (condition) {
                 runnable.run();
             }
-            return new FluentCondition(condition);
+            return new FluentCondition<>(condition);
         }
 
         void orElse(Runnable runnable) {
@@ -43,41 +43,46 @@ interface FluentConditionals {
             }
         }
 
-        int orElseThrowE(RuntimeException e) {
+        T orElseThrowE(RuntimeException e) {
             if (!condition) {
                 throw new RuntimeException(e);
             }
-            return returnInt;
+            return t;
         }
 
-        int orElseThrow(Supplier<RuntimeException> runtimeExceptionSupplier) {
+        T orElseThrow(Supplier<RuntimeException> runtimeExceptionSupplier) {
             if (!condition) {
                 throw runtimeExceptionSupplier.get();
             }
-            return returnInt;
+            return t;
         }
 
-        FluentCondition thenReturn(Supplier<Integer> supplier) {
+        FluentCondition<T> thenReturn(Supplier<T> supplier) {
             if (condition) {
-                returnInt = supplier.get();
+                t = supplier.get();
             }
-            return new FluentCondition(condition, returnInt);
+            return new FluentCondition<>(condition, t);
         }
 
-        int orElse(Supplier<Integer> supplier) {
-            if (!condition) {
-                returnInt = supplier.get();
+        FluentCondition<T> thenReturn(T t) {
+            if (condition) {
+                this.t = t;
             }
-            return returnInt;
+            return new FluentCondition<>(condition, this.t);
         }
 
-        int orElse(int i) {
+        T orElse(Supplier<T> supplier) {
             if (!condition) {
-                returnInt = i;
+                t = supplier.get();
             }
-            return returnInt;
+            return t;
+        }
+
+        T orElse(T t) {
+            if (!condition) {
+                this.t = t;
+            }
+            return this.t;
         }
     }
 }
-
-
